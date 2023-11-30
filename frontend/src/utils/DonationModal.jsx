@@ -6,12 +6,17 @@ import axios from 'axios';
 const DonationModal = ({donationData, setActiveModal}) => {
 
     const passwordRef = useRef();
+    const tokenRef = useRef();
     const navigate = useNavigate();
+
+    const [loading, setLoading] = useState(false);
 
     const donationHandler = async () => {
         // check if the entered password is correct or not
+        setLoading(true)
         const pass = passwordRef.current.value;
-        if(pass === "hospital@2023"){
+        const token = tokenRef.current.value;
+        if(pass === "hospital@2023" && token === donationData.secretToken){
             // create a donation
             const url = `http://localhost:8000/api/donation/create`;
             const data = {
@@ -60,9 +65,12 @@ const DonationModal = ({donationData, setActiveModal}) => {
                     <p><span className='font-medium'>Blood Group: </span>{donationData.bloodType} </p>
                     <label className='font-bold mt-[10px]'>Enter the hospital password below to proceed donation</label>
                     <input ref={passwordRef} type="password" placeholder="password" className='border-[2px] border-[#6c757d] rounded-[5px] px-[10px] py-[6px] mt-[5px] text-[18px]'  />
+                    <label className='font-bold mt-[10px]'>Enter the donor's secret token</label>
+                    <input ref={tokenRef} type="text" placeholder="secret token" className='border-[2px] border-[#6c757d] rounded-[5px] px-[10px] py-[6px] mt-[5px] text-[18px]'  />
                 </div>
 
-                <button onClick = {() => donationHandler()} className='mt-[20px] bg-[#0077b6] text-white font-medium px-[12px] py-[7px] rounded-[5px]'>Proceed</button>
+                        <button onClick = {() => donationHandler()} className='mt-[20px] bg-[#0077b6] text-white font-medium px-[12px] py-[7px] rounded-[5px]'>Proceed</button>
+
             </div>
         </>, document.getElementById("portal")
     );

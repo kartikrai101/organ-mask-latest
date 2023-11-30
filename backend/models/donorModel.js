@@ -60,6 +60,9 @@ const Donor = sequelize.define('donors', {
     },
     password: {
         type: DataTypes.STRING
+    },
+    secretToken: {
+        type: DataTypes.TEXT
     }
 }, {
     freezeTableName: true

@@ -139,7 +139,7 @@ const Donor = (props) => {
                             <div className='flex justify-between items-center mt-[20px]'>
                                 <div className='flex flex-col items-start'>
                                     <label className=''>Create password</label>
-                                    <input ref={passwordRef} type="password" placeholder="Enter your complete address" className="mt-[5px] text-[18px] px-[10px] border-[1px] rounded-[5px] border-grey py-[5px] min-w-[350px]" />
+                                    <input ref={passwordRef} type="password" placeholder="password" className="mt-[5px] text-[18px] px-[10px] border-[1px] rounded-[5px] border-grey py-[5px] min-w-[350px]" />
                                 </div>
                                 <div className='flex flex-col items-start'>
                                     <label className=''>Address</label>

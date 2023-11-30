@@ -4,6 +4,8 @@ import DonorCard from '../../utils/DonorCard';
 import RecipientCard from '../../utils/RecipientCard';
 import DonorModal from '../../utils/DonorModal';
 import RecipientModal from '../../utils/RecipientModal';
+import DonationCard from '../../utils/DonationCard';
+import DonationModalNew from '../../utils/DonationModalNew';
 import axios from 'axios';
 
 const NonActiveClass = 'flex items-center bg-[#F8F8F8] text-[#4B465C] rounded-[5px] px-[10px] py-[4px] cursor-pointer';
@@ -14,6 +16,7 @@ const Dashboard = (props) => {
 
     const [donorActiveModal, setDonorActiveModal] = useState(false);
     const [recipientActiveModal, setRecipientActiveModal] = useState(false);
+    const [donationActiveModal, setDonationActiveModal] = useState(false);
     const [modalData, setModalData] = useState({});
 
     const [registeredDonors, setRegisteredDonors] = useState([]);
@@ -23,6 +26,8 @@ const Dashboard = (props) => {
     const [registeredRecipients, setRegisteredRecipients] = useState([]);
     const [verifiedRecipients, setVerifiedRecipients] = useState([]);
     const [receivedRecipients, setReceivedRecipients] = useState([]);
+
+    const [donations, setDonations] = useState([]);
 
     useEffect(() => {
         const callback = async () => {
@@ -46,10 +51,14 @@ const Dashboard = (props) => {
                 const url = "http://localhost:8000/api/hospital/recipient/verified";
                 const response = await axios.get(url);
                 setVerifiedRecipients(response.data.verifiedRecipients);
-            }else{
+            }else if(selectedPage === 6){
                 const url = "http://localhost:8000/api/hospital/recipient/received";
                 const response = await axios.get(url);
                 setReceivedRecipients(response.data.receivedRecipients);
+            }else{
+                const url = "http://localhost:8000/api/donation/get/all";
+                const response = await axios.get(url);
+                setDonations(response.data.body)
             }
         }
         callback();
@@ -99,6 +108,17 @@ const Dashboard = (props) => {
                             <div onClick = {() => setSelectedPage(6)} className={selectedPage === 6 ? ActiveClass : NonActiveClass}>
                                 <img src="/assets/donatedIcon.png" alt="verification" className="w-[25px]" />
                                 <p className='ml-[10px]'>Recieved</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className='mt-[20px]'>
+                        <p className="font-normal text-[#6c757d] mb-[10px]">Donations</p>
+
+                        <div className='space-y-2'>
+                            <div onClick = {() => setSelectedPage(7)} className={selectedPage === 7 ? ActiveClass : NonActiveClass}>
+                                <img src="/assets/registeredIcon.png" alt="verification" className="w-[25px]" />
+                                <p className='ml-[10px]'>Donations</p>
                             </div>
                         </div>
                     </div>
@@ -153,6 +173,13 @@ const Dashboard = (props) => {
                             })
                         ) : null
                     }
+                    {
+                        selectedPage === 7 ? (
+                            donations.map((donation, key) => {
+                                return <DonationCard data = {donation} page = {selectedPage} setActiveModal={setDonationActiveModal} setModalData={setModalData} />
+                            })
+                        ) : null
+                    }
                 </div>
             </div>
             {
@@ -163,6 +190,11 @@ const Dashboard = (props) => {
             {
                 recipientActiveModal ? (
                     <RecipientModal data = {modalData} setRecipientActiveModal = {setRecipientActiveModal} />
+                ) : null
+            }
+            {
+                donationActiveModal ? (
+                    <DonationModalNew data = {modalData} setDonationActiveModal = {setDonationActiveModal} />
                 ) : null
             }
         </div>

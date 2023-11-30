@@ -61,8 +61,9 @@ const DonationForm = (props) => {
             donorId: donorDetails.donorId,
             recipientName: recipientData.fname + " " + recipientData.lname,
             recipientId: recipientData.recipientId,
-            organ: donorDetails.organ,
-            bloodType: donorDetails.bloodType
+            organ: donorDetails.donatedOrgan,
+            bloodType: donorDetails.bloodType,
+            secretToken: donorDetails.secretToken
         }
         setDonationData(data);
         setActiveModal(true);

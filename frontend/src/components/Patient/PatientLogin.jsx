@@ -73,7 +73,9 @@ const PatientLogin = (props) => {
                     <p><Link to={'/patient'}><span className="text-[#023e8a] font-medium hover:font-bold hover:cursor-pointer">Signup</span></Link> if you have not registered before!</p>
                 </div>
             </div>
+            <label></label>
         </div>
+
     );
 }
 
