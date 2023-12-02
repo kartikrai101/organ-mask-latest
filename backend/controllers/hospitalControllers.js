@@ -163,3 +163,33 @@ exports.getReceivedRecipients = async (req, res) => {
         })
     }
 }
+
+exports.getAllDonors = async (req, res) => {
+    try{
+        const donors = await Donor.findAll();
+        res.json({
+            success: true,
+            body: donors
+        })
+    }catch(err){
+        res.json({
+            success: false,
+            message: "Error fetching donors"
+        })
+    }
+}
+
+exports.getAllRecipients = async (req, res) => {
+    try{
+        const recipients = await Recipient.findAll();
+        res.json({
+            success: true,
+            body: recipients
+        })
+    }catch(err){
+        res.json({
+            success: false,
+            message: "Error fetching recipients"
+        })
+    }
+}

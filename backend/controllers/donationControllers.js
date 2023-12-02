@@ -74,6 +74,7 @@ const main = async (donationData) => {
 exports.createDonation = async (req, res) => {
     try {
         // take all the info from request body and create a donation
+        console.log("this is working")
         const data = req.body;
         const donationId = uuidv4();
 
